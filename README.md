@@ -7,4 +7,4 @@ Twitter users operated by automated programs, also known as bots, have increased
 The affiliated paper of this repository, 'BotRGCN: Twitter Bot Detection with Relational Graph Convolutional Networks', is under review at ASONAM'21. Work in progress.
 
 #### Code Description
-Codes in /BotRGCN are BotRGCN implementations, as well as its transformed versions used in ablation study and relevant discussions in the paper. Codes in /data%processing extract four feature sets from original TwiBot-20 data, where the data could be accessed at https://github.com/GabrielHam/TwiBot20.
+Codes in /BotRGCN are BotRGCN implementations, as well as its transformed versions used in ablation study and relevant discussions in the paper. Codes in /data%processing extract four feature sets from original TwiBot-20 data, where the data could be accessed at https://github.com/GabrielHam/TwiBot-20.
