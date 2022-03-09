@@ -10,7 +10,7 @@ The affiliated paper of this repository, ['BotRGCN: Twitter Bot Detection with R
 
 ## Dataset
 
-More details at [TwiBot-20 data](https://github.com/GabrielHam/TwiBot-20.) , please download 'Twibot-20.zip' to the folder which also contains 'Dataset.py' and extract it there.
+More details at [TwiBot-20 data](https://github.com/GabrielHam/TwiBot-20) , please download 'Twibot-20.zip' to the folder which also contains 'Dataset.py' and extract it there.
 
 ## Code Description
 
