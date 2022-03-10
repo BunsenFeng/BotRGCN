@@ -130,13 +130,8 @@ class Twibot20(Dataset):
                     total_word_tensor/=each_tweet_tensor.shape[1]
                     if j==0:
                         total_each_person_tweets=total_word_tensor
-                    elif j==10:
-                        break
                     else:
                         total_each_person_tweets+=total_word_tensor
-                if j==10:
-                    total_each_person_tweets/=10
-                else:
                     total_each_person_tweets/=len(each_person_tweets)
                 tweets_list.append(total_each_person_tweets)
                 if (i%500==0):
