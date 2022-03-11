@@ -6,6 +6,8 @@ import os
 from transformers import pipeline
 from datetime import datetime as dt
 from torch.utils.data import Dataset
+from tqdm import tqdm
+
 
 class Twibot20(Dataset):
     def __init__(self,root='./Data/',device='cpu',process=True,save=True):
@@ -71,7 +73,8 @@ class Twibot20(Dataset):
             print('Loading RoBerta')
             feature_extraction = pipeline('feature-extraction', model="distilroberta-base", tokenizer="distilroberta-base",device=0)
             des_vec=[]
-            for (j,each) in enumerate(description):
+            #for (j,each) in tqdm(enumerate(description)):
+            for each in tqdm(description):
                 feature=torch.Tensor(feature_extraction(each))
                 for (i,tensor) in enumerate(feature[0]):
                     if i==0:
@@ -80,8 +83,8 @@ class Twibot20(Dataset):
                         feature_tensor+=tensor
                 feature_tensor/=feature.shape[1]
                 des_vec.append(feature_tensor)
-                if (j%1000==0):
-                    print('[{:>6d}/229580]'.format(j+1))
+                #if (j%1000==0):
+                    #print('[{:>6d}/229580]'.format(j+1))
             des_tensor=torch.stack(des_vec,0).to(self.device)
             if self.save:
                 torch.save(des_tensor,'./Data/des_tensor.pt')
@@ -119,7 +122,7 @@ class Twibot20(Dataset):
             print('Loading RoBerta')
             feature_extract=pipeline('feature-extraction',model='roberta-base',tokenizer='roberta-base',device=0,padding=True, truncation=True,max_length=500, add_special_tokens = True)
             tweets_list=[]
-            for i,each_person_tweets in enumerate(tweets):
+            for each_person_tweets in tqdm(tweets):
                 for j,each_tweet in enumerate(each_person_tweets):
                     each_tweet_tensor=torch.tensor(feature_extract(each_tweet))
                     for k,each_word_tensor in enumerate(each_tweet_tensor[0]):
@@ -132,10 +135,10 @@ class Twibot20(Dataset):
                         total_each_person_tweets=total_word_tensor
                     else:
                         total_each_person_tweets+=total_word_tensor
-                    total_each_person_tweets/=len(each_person_tweets)
+                total_each_person_tweets/=len(each_person_tweets)
                 tweets_list.append(total_each_person_tweets)
-                if (i%500==0):
-                    print('[{:>6d}/229580]'.format(i+1))
+                #if (i%500==0):
+                    #print('[{:>6d}/229580]'.format(i+1))
             tweet_tensor=torch.stack(tweets_list).to(self.device)
             if self.save:
                 torch.save(tweet_tensor,path)
