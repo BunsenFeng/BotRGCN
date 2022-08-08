@@ -40,4 +40,4 @@ More details at [TwiBot-20 data](https://github.com/GabrielHam/TwiBot-20) , plea
 
 - **The Pre-Processing is too slow!**
 
-This is a common issue since we did not present parallized code in this repo since it's dependent on specific CPU/GPU/device configurations. You can parallize it yourself or download our pre-processing results here at [link](https://drive.google.com/file/d/14X1yg-TK_5-On1JfHop6off5_bLzrRvA/view?usp=sharing).
+This is a common issue since we did not present parallelized code in this repo since it's dependent on specific CPU/GPU/device configurations. You can parallelize it yourself or download our pre-processing results here at [link](https://drive.google.com/file/d/14X1yg-TK_5-On1JfHop6off5_bLzrRvA/view?usp=sharing).
