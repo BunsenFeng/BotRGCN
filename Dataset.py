@@ -13,6 +13,7 @@ class Twibot20(Dataset):
     def __init__(self,root='./Data/',device='cpu',process=True,save=True):
         self.root = root
         self.device = device
+        self.process=process
         if process:
             print('Loading train.json')
             df_train=pd.read_json('./Twibot-20/train.json')
@@ -149,7 +150,7 @@ class Twibot20(Dataset):
     
     def num_prop_preprocess(self):
         print('Processing feature3...',end='   ')
-        path0=self.root+'num_prop.pt'
+        path0=self.root+'num_properties_tensor.pt'
         if not os.path.exists(path0):
             path=self.root
             if not os.path.exists(path+"followers_count.pt"):
@@ -250,16 +251,16 @@ class Twibot20(Dataset):
             num_prop=torch.cat((followers_count.reshape([229580,1]),friends_count.reshape([229580,1]),favourites_count.reshape([229580,1]),statuses_count.reshape([229580,1]),screen_name_length_days.reshape([229580,1]),active_days.reshape([229580,1])),1).to(self.device)
 
             if self.save:
-                torch.save(num_prop,"./Data/num_prop.pt")
+                torch.save(num_prop,"./Data/num_properties_tensor.pt")
             
         else:
-            num_prop=torch.load(self.root+"num_prop.pt").to(self.device)
+            num_prop=torch.load(self.root+"num_properties_tensor.pt").to(self.device)
         print('Finished')
         return num_prop
     
     def cat_prop_preprocess(self):
         print('Processing feature4...',end='   ')
-        path=self.root+'category_properties.pt'
+        path=self.root+'cat_properties_tensor.pt'
         if not os.path.exists(path):
             category_properties=[]
             properties=['protected','geo_enabled','verified','contributors_enabled','is_translator','is_translation_enabled','profile_background_tile','profile_use_background_image','has_extended_profile','default_profile','default_profile_image']
@@ -281,9 +282,9 @@ class Twibot20(Dataset):
                 category_properties.append(prop)
             category_properties=torch.tensor(np.array(category_properties,dtype=np.float32)).to(self.device)
             if self.save:
-                torch.save(category_properties,self.root+'category_properties.pt')
+                torch.save(category_properties,self.root+'cat_properties_tensor.pt')
         else:
-            category_properties=torch.load(self.root+"category_properties.pt").to(self.device)
+            category_properties=torch.load(self.root+"cat_properties_tensor.pt").to(self.device)
         print('Finished')
         return category_properties
     
@@ -333,9 +334,11 @@ class Twibot20(Dataset):
     
     def dataloader(self):
         labels=self.load_labels()
-        self.Des_Preprocess()
+        if self.process:
+            self.Des_Preprocess()
+            self.tweets_preprocess()
+
         des_tensor=self.Des_embbeding()
-        self.tweets_preprocess()
         tweets_tensor=self.tweets_embedding()
         num_prop=self.num_prop_preprocess()
         category_prop=self.cat_prop_preprocess()
