@@ -38,7 +38,7 @@ More details at [TwiBot-20 data](https://github.com/GabrielHam/TwiBot-20) , plea
   - BotRGCN_4layers - BotRGCN with 4 RGCNConv layers
   - BotRGCN_8layers - BotRGCN with 8 RGCNConv layers
 
-#The Pre-Processing is too slow!
+## The Pre-Processing is too slow!
 
 This is a common issue since we did not present parallelized code in this repo since it's dependent on specific CPU/GPU/device configurations. You can parallelize it yourself or download our pre-processing results here at [link](https://drive.google.com/file/d/14X1yg-TK_5-On1JfHop6off5_bLzrRvA/view?usp=sharing).
 
@@ -52,7 +52,7 @@ The above zip file includes four generated embeddings
 
 and `edge_index.pt`, `edge_type.pt`,  `label.pt`
 
-#The Pre-Trained weight of BotRGCN on Twibot-22
+## The Pre-Trained weight of BotRGCN on Twibot-22
 
 To facilitate future research , we provide [here](https://drive.google.com/file/d/1aHwUUtzB-s4RbC9goHsDzEHMe2-oQWTR/view?usp=share_link) the `state_dict()` of our BotRGCN model trained on Twibot-22.
 
